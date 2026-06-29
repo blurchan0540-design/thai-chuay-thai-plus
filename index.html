@@ -1,0 +1,915 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<title>เครื่องคำนวณ ไทยช่วยไทยพลัส 60/40 — เติมเท่าไหร่ จ่ายเองเท่าไหร่</title>
+<meta name="description" content="เครื่องคำนวณโครงการไทยช่วยไทยพลัส 2569 (60/40) คำนวณว่าต้องเติมเท่าไหร่ รัฐช่วยเท่าไหร่ เราจ่ายเองเท่าไหร่ ทั้งรายวัน (เพดานรัฐ 200 บาท) และรายเดือน (เพดานรัฐ 1,000 บาท) ใช้ผ่าน G Wallet แอปเป๋าตัง" />
+<meta name="keywords" content="ไทยช่วยไทย, ไทยช่วยไทยพลัส, 60/40, คำนวณเติมเงิน, เป๋าตัง, G Wallet, วงเงินรัฐ, คนละครึ่ง, โครงการรัฐ 2569" />
+<meta name="author" content="Thai Chuay Thai Plus Calculator" />
+<meta name="robots" content="index, follow" />
+<meta name="theme-color" content="#f9876f" />
+<link rel="canonical" href="https://thai-chuay-thai-plus-16143.netlify.app/" />
+
+<!-- Favicon -->
+<link rel="icon" type="image/svg+xml" href="favicon.svg" />
+<link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png" />
+<link rel="shortcut icon" href="favicon.ico" />
+<link rel="apple-touch-icon" href="favicon-192.png" />
+
+<!-- Open Graph -->
+<meta property="og:type" content="website" />
+<meta property="og:locale" content="th_TH" />
+<meta property="og:site_name" content="ไทยช่วยไทยพลัส 60/40" />
+<meta property="og:title" content="เครื่องคำนวณ ไทยช่วยไทยพลัส 60/40" />
+<meta property="og:description" content="คำนวณว่าต้องเติมเท่าไหร่ รัฐช่วยเท่าไหร่ เราจ่ายเองเท่าไหร่ ทั้งรายวันและรายเดือน" />
+<meta property="og:url" content="https://thai-chuay-thai-plus-16143.netlify.app/" />
+<meta property="og:image" content="https://thai-chuay-thai-plus-16143.netlify.app/og-image.png" />
+<meta property="og:image:type" content="image/png" />
+<meta property="og:image:width" content="1200" />
+<meta property="og:image:height" content="630" />
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="เครื่องคำนวณ ไทยช่วยไทยพลัส 60/40" />
+<meta name="twitter:description" content="คำนวณว่าต้องเติมเท่าไหร่ รัฐช่วยเท่าไหร่ เราจ่ายเองเท่าไหร่ ทั้งรายวันและรายเดือน" />
+<meta name="twitter:image" content="https://thai-chuay-thai-plus-16143.netlify.app/og-image.png" />
+
+<!-- Structured data -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "เครื่องคำนวณ ไทยช่วยไทยพลัส 60/40",
+  "url": "https://thai-chuay-thai-plus-16143.netlify.app/",
+  "applicationCategory": "FinanceApplication",
+  "operatingSystem": "Any",
+  "inLanguage": "th",
+  "description": "เครื่องคำนวณโครงการไทยช่วยไทยพลัส 2569 (60/40) คำนวณว่าต้องเติมเท่าไหร่ รัฐช่วยเท่าไหร่ เราจ่ายเองเท่าไหร่ ทั้งรายวันและรายเดือน",
+  "offers": { "@type": "Offer", "price": "0", "priceCurrency": "THB" }
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Google+Sans:ital,opsz,wght@0,17..18,400..700;1,17..18,400..700&display=swap" rel="stylesheet">
+<script>
+  // ใช้ธีมล่าสุดที่เคยเลือก (ก่อน render เพื่อกันจอกระพริบ)
+  (function () {
+    try {
+      var t = localStorage.getItem('tct-theme') || 'pastel';
+      document.documentElement.setAttribute('data-theme', t);
+    } catch (e) {
+      document.documentElement.setAttribute('data-theme', 'pastel');
+    }
+  })();
+</script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Mali:wght@400;500;600;700&family=Sarabun:wght@400;500;600;700&display=swap');
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  /* ===== ธีม Pastel (ค่าเริ่มต้น) ===== */
+  :root {
+    --bg1: #fdeee6;
+    --bg2: #fbe3e6;
+    --surface: #ffffff;
+    --surface2: #fff4ee;
+    --border: #f3e1d7;
+    --line: transparent;     /* เส้นขอบการ์ด */
+    --text: #5a4a42;
+    --muted: #a8938a;
+    --brand: #f9876f;        /* สีแบรนด์ (หัวข้อ/แท็บ/โฟกัส) */
+    --brand-bg: #fdeee9;
+    --gov: #6fa8d6;          /* รัฐ = ฟ้าพาสเทล */
+    --gov-bg: #eaf3fb;
+    --self: #f9876f;         /* เรา = พีช/คอรัล */
+    --self-bg: #fdeee9;
+    --mint: #4cb89a;         /* บวก / สามารถใช้ได้ = มินต์ */
+    --mint-bg: #e7f6ef;
+    --ok-text: #2c7d65;
+    --amber: #e8943a;        /* เตือน */
+    --amber-bg: #fdf0dd;
+    --warn-text: #b56a18;
+    --track-used: #e7d3c8;   /* แถบส่วนที่ใช้ไปแล้ว (โหมดเดือน) */
+    --shadow: 0 10px 30px -12px rgba(196, 130, 110, .35);
+    --shadow-sm: 0 4px 14px -6px rgba(196, 130, 110, .3);
+    --font-head: 'Mali', 'Sarabun', cursive;
+    --font-body: 'Sarabun', sans-serif;
+  }
+
+  /* ===== ธีม Dark (แบบเดิม) ===== */
+  html[data-theme="dark"] {
+    --bg1: #0d1117;
+    --bg2: #0d1117;
+    --surface: #161b22;
+    --surface2: #1f2937;
+    --border: #30363d;
+    --line: #30363d;
+    --text: #f0f6fc;
+    --muted: #8b949e;
+    --brand: #58a6ff;
+    --brand-bg: #0d2440;
+    --gov: #58a6ff;
+    --gov-bg: #0d2440;
+    --self: #3fb950;
+    --self-bg: #0a2a12;
+    --mint: #3fb950;
+    --mint-bg: #0a2a12;
+    --ok-text: #3fb950;
+    --amber: #d29922;
+    --amber-bg: #2a1f00;
+    --warn-text: #d29922;
+    --track-used: #30363d;
+    --shadow: none;
+    --shadow-sm: none;
+    --font-head: 'Google Sans', 'Sarabun', sans-serif;
+    --font-body: 'Google Sans', 'Sarabun', sans-serif;
+  }
+
+  body {
+    font-family: var(--font-body);
+    background: linear-gradient(160deg, var(--bg1) 0%, var(--bg2) 100%);
+    background-attachment: fixed;
+    color: var(--text);
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 2rem 1rem 4rem;
+  }
+
+  h1, h2, h3, .mali { font-family: var(--font-head); }
+
+  /* ===== ปุ่มสลับธีม ===== */
+  .theme-toggle {
+    position: fixed;
+    top: 1rem;
+    right: 1rem;
+    z-index: 100;
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    color: var(--text);
+    font-family: var(--font-head);
+    font-size: 13px;
+    font-weight: 600;
+    padding: 8px 14px;
+    border-radius: 99px;
+    cursor: pointer;
+    box-shadow: var(--shadow-sm);
+    transition: transform .15s ease, box-shadow .2s;
+  }
+  .theme-toggle:hover { transform: translateY(-1px); }
+  .theme-toggle svg { width: 16px; height: 16px; }
+  .theme-toggle .t-sun { display: none; }
+  .theme-toggle .t-moon { display: inline; }
+  html[data-theme="dark"] .theme-toggle .t-sun { display: inline; }
+  html[data-theme="dark"] .theme-toggle .t-moon { display: none; }
+
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    color: var(--brand);
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .04em;
+    padding: 6px 14px;
+    border-radius: 99px;
+    box-shadow: var(--shadow-sm);
+    margin-bottom: 1rem;
+  }
+
+  h1 {
+    font-size: clamp(1.5rem, 5vw, 2.1rem);
+    font-weight: 700;
+    text-align: center;
+    line-height: 1.35;
+    margin-bottom: .4rem;
+    color: var(--text);
+  }
+
+  h1 span { color: var(--brand); }
+
+  .sub {
+    font-size: 15px;
+    color: var(--muted);
+    text-align: center;
+    margin-bottom: 2rem;
+    max-width: 460px;
+  }
+
+  .card {
+    width: 100%;
+    max-width: 460px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 24px;
+    padding: 1.75rem;
+    box-shadow: var(--shadow);
+  }
+
+  .input-group { margin-bottom: 1.5rem; }
+
+  .input-group label {
+    display: block;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+
+  .input-wrap {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--surface2);
+    border: 2px solid transparent;
+    border-radius: 16px;
+    padding: 0 1rem;
+    transition: border-color .2s, box-shadow .2s;
+  }
+
+  .input-wrap:focus-within {
+    border-color: var(--brand);
+    box-shadow: 0 0 0 4px var(--brand-bg);
+  }
+
+  .input-icon { font-size: 18px; color: var(--brand); font-weight: 700; }
+
+  .input-wrap input {
+    flex: 1;
+    background: none;
+    border: none;
+    outline: none;
+    color: var(--text);
+    font-family: var(--font-head);
+    font-size: 1.4rem;
+    font-weight: 700;
+    padding: .8rem 0;
+    width: 100%;
+  }
+
+  .input-wrap input::-webkit-inner-spin-button,
+  .input-wrap input::-webkit-outer-spin-button { -webkit-appearance: none; }
+
+  .input-wrap .suffix { font-size: 14px; color: var(--muted); white-space: nowrap; }
+
+  .divider {
+    border: none;
+    border-top: 2px dashed var(--border);
+    margin: 1.5rem 0;
+  }
+
+  .result-label {
+    font-size: 12px;
+    color: var(--muted);
+    font-weight: 600;
+    letter-spacing: .03em;
+    margin-bottom: 6px;
+  }
+
+  .result-main {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+    margin-bottom: 1.25rem;
+  }
+
+  .result-main .amount {
+    font-family: var(--font-head);
+    font-size: 3rem;
+    font-weight: 700;
+    line-height: 1;
+    transition: color .2s;
+  }
+
+  .result-main .amount-unit { font-size: 18px; color: var(--muted); }
+
+  .grid2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-bottom: 1.25rem;
+  }
+
+  .mini-card {
+    background: var(--surface2);
+    border-radius: 18px;
+    padding: 1rem 1.1rem;
+  }
+  .mini-card.gov { background: var(--gov-bg); }
+  .mini-card.us  { background: var(--self-bg); }
+
+  .mini-card .mini-label { font-size: 11px; color: var(--muted); font-weight: 600; margin-bottom: 4px; }
+
+  .mini-card .mini-val {
+    font-family: var(--font-head);
+    font-size: 1.35rem;
+    font-weight: 700;
+  }
+
+  .mini-card.gov .mini-val { color: var(--gov); }
+  .mini-card.us .mini-val { color: var(--self); }
+
+  .bar-section { margin-bottom: 1.25rem; }
+
+  .bar-labels {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--muted);
+    margin-bottom: 8px;
+  }
+
+  .bar-track {
+    height: 14px;
+    border-radius: 99px;
+    background: var(--surface2);
+    overflow: hidden;
+    display: flex;
+    padding: 2px;
+    gap: 2px;
+  }
+
+  .bar-gov-fill {
+    height: 100%;
+    background: var(--gov);
+    border-radius: 99px;
+    transition: width .35s cubic-bezier(.34,1.56,.64,1);
+  }
+
+  .bar-us-fill {
+    height: 100%;
+    background: var(--self);
+    border-radius: 99px;
+    transition: width .35s cubic-bezier(.34,1.56,.64,1);
+  }
+
+  .info-box {
+    border-radius: 16px;
+    padding: 1rem 1.1rem;
+    font-size: 13px;
+    line-height: 1.7;
+  }
+
+  .info-box.ok { background: var(--mint-bg); color: var(--ok-text); }
+  .info-box.warn { background: var(--amber-bg); color: var(--warn-text); }
+  .info-box strong { font-weight: 700; }
+
+  .tabs {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 6px;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 6px;
+    width: 100%;
+    max-width: 460px;
+    margin-bottom: 1.25rem;
+    box-shadow: var(--shadow-sm);
+  }
+
+  .tabs button {
+    background: none;
+    border: none;
+    color: var(--muted);
+    font-family: var(--font-head);
+    font-size: 13px;
+    font-weight: 600;
+    padding: .7rem .5rem;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: background .2s, color .2s, box-shadow .2s;
+  }
+
+  .tabs button:hover { color: var(--text); }
+
+  .tabs button.active {
+    background: var(--brand);
+    color: #fff;
+    box-shadow: 0 6px 14px -6px var(--brand);
+  }
+
+  .view { display: none; }
+  .view.active { display: block; animation: pop .3s ease both; }
+
+  @keyframes pop {
+    from { opacity: 0; transform: translateY(8px) scale(.99); }
+    to   { opacity: 1; transform: none; }
+  }
+
+  /* ===== แอนิเมชันเข้า (ไล่จังหวะตอนโหลด) ===== */
+  @keyframes rise {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: none; }
+  }
+  .theme-toggle { animation: rise .5s ease both; }
+  .badge { animation: rise .5s ease both; }
+  h1     { animation: rise .5s .07s ease both; }
+  .sub   { animation: rise .5s .14s ease both; }
+  .tabs  { animation: rise .5s .21s ease both; }
+  #view-split.active { animation: rise .5s .28s ease both; }
+  .note  { animation: rise .5s .42s ease both; }
+
+  /* ยกการ์ดเล็กตอน hover */
+  .mini-card { transition: transform .2s ease; }
+  .mini-card:hover { transform: translateY(-3px); }
+
+  /* เน้นตัวเลขตอนเปลี่ยนค่า */
+  @keyframes numbump {
+    0% { transform: scale(1); }
+    40% { transform: scale(1.06); }
+    100% { transform: scale(1); }
+  }
+  .amount.bump { animation: numbump .35s ease; }
+
+  .note {
+    width: 100%;
+    max-width: 460px;
+    margin: 1.75rem auto 0;
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 22px;
+    padding: 1.4rem 1.4rem 1.5rem;
+    font-size: 13px;
+    box-shadow: var(--shadow);
+  }
+
+  .note h3 {
+    font-size: 15px;
+    font-weight: 700;
+    color: var(--brand);
+    margin-bottom: 1rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .note .note-block { margin-bottom: 1.1rem; }
+  .note .note-block:last-child { margin-bottom: 0; }
+
+  .note .note-head { font-weight: 700; color: var(--text); margin-bottom: 6px; font-family: var(--font-head); }
+
+  .note .note-row {
+    display: flex;
+    justify-content: space-between;
+    color: var(--muted);
+    line-height: 2;
+  }
+
+  .note .note-row .v { color: var(--text); font-weight: 600; }
+  .note .note-topup { color: var(--mint); font-weight: 700; }
+
+  @media (min-width: 1180px) {
+    .note { position: fixed; top: 2rem; right: 2rem; margin: 0; width: 300px; }
+  }
+
+  .footer {
+    margin-top: 2rem;
+    font-size: 12px;
+    color: var(--muted);
+    text-align: center;
+    line-height: 1.9;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<button class="theme-toggle" id="theme-btn" onclick="toggleTheme()" aria-label="สลับธีม">
+  <svg class="t-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+  <svg class="t-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/></svg>
+  <span id="theme-label">ธีม Dark</span>
+</button>
+
+<div class="badge">
+  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+  ไทยช่วยไทยพลัส 2569 · 60/40
+</div>
+
+<h1 id="title">ของราคานี้<br><span>ฉัน/รัฐ จ่ายเท่าไหร่?</span></h1>
+<p class="sub" id="subtitle">กรอกราคาสินค้า ระบบจะแยกให้ว่ารัฐจ่ายเท่าไหร่ เราจ่ายเองเท่าไหร่</p>
+
+<div class="tabs">
+  <button id="tab-split" class="active" onclick="switchTab('split')">รัฐ/เรา จ่ายเท่าไหร่</button>
+  <button id="tab-topup" onclick="switchTab('topup')">เติมให้วงเงินหมด</button>
+  <button id="tab-spend" onclick="switchTab('spend')">จ่ายเพิ่มส่วนเกิน</button>
+  <button id="tab-month" onclick="switchTab('month')">เงินคงเหลือเดือนนี้</button>
+</div>
+
+<div class="view active" id="view-split">
+<div class="card">
+  <div class="input-group">
+    <label>ราคาสินค้าที่จะซื้อ (บาท)</label>
+    <div class="input-wrap">
+      <span class="input-icon">฿</span>
+      <input type="number" id="sprice" value="400" min="0" step="1" inputmode="decimal" />
+      <span class="suffix">บาท</span>
+    </div>
+  </div>
+
+  <hr class="divider" />
+
+  <div class="grid2">
+    <div class="mini-card gov">
+      <div class="mini-label">รัฐจ่าย</div>
+      <div class="mini-val" id="sl-gov-show">200.00 ฿</div>
+    </div>
+    <div class="mini-card us">
+      <div class="mini-label">ฉันจ่ายเอง</div>
+      <div class="mini-val" id="sl-self-show">200.00 ฿</div>
+    </div>
+  </div>
+
+  <div class="bar-section">
+    <div class="bar-labels">
+      <span id="sl-gov-pct">รัฐ 50%</span>
+      <span id="sl-self-pct">เรา 50%</span>
+    </div>
+    <div class="bar-track">
+      <div class="bar-gov-fill" id="sl-bar-gov" style="width:50%"></div>
+      <div class="bar-us-fill" id="sl-bar-self" style="width:50%"></div>
+    </div>
+  </div>
+
+  <div class="info-box ok" id="sl-info">
+    ซื้อของ <strong>400.00</strong> บาท · รัฐจ่าย <strong>200.00</strong> บาท · ฉันจ่ายเอง <strong>200.00</strong> บาท
+  </div>
+</div>
+</div>
+
+<div class="view" id="view-topup">
+<div class="card">
+  <div class="input-group">
+    <label>วงเงินรัฐที่เหลือวันนี้ (บาท)</label>
+    <div class="input-wrap">
+      <span class="input-icon">฿</span>
+      <input type="number" id="gov" value="168" min="0" max="200" step="1" inputmode="decimal" />
+      <span class="suffix">/ 200 บาท</span>
+    </div>
+  </div>
+
+  <hr class="divider" />
+
+  <p class="result-label">เราต้องเติมเพิ่ม</p>
+  <div class="result-main">
+    <span class="amount" id="topup" style="color: var(--mint);">112.00</span>
+    <span class="amount-unit">บาท</span>
+  </div>
+
+  <div class="grid2">
+    <div class="mini-card gov">
+      <div class="mini-label">รัฐจ่าย 60%</div>
+      <div class="mini-val" id="gov-show">168.00 ฿</div>
+    </div>
+    <div class="mini-card us">
+      <div class="mini-label">เราเติม 40%</div>
+      <div class="mini-val" id="us-show">112.00 ฿</div>
+    </div>
+  </div>
+
+  <div class="bar-section">
+    <div class="bar-labels">
+      <span id="gov-pct">รัฐ 60%</span>
+      <span id="us-pct">เรา 40%</span>
+    </div>
+    <div class="bar-track">
+      <div class="bar-gov-fill" id="bar-gov" style="width:60%"></div>
+      <div class="bar-us-fill" id="bar-us" style="width:40%"></div>
+    </div>
+  </div>
+
+  <div class="info-box ok" id="info">
+    ยอดรวม <strong id="total-show">280.00</strong> บาท — รัฐออก <strong>168.00</strong> บาท เติมเพิ่มแค่ <strong>112.00</strong> บาท ใช้หมดพอดี
+  </div>
+</div>
+</div>
+
+<div class="view" id="view-spend">
+<div class="card">
+  <div class="input-group">
+    <label>ราคาสินค้าที่จะซื้อ (บาท)</label>
+    <div class="input-wrap">
+      <span class="input-icon">฿</span>
+      <input type="number" id="price" value="400" min="0" step="1" inputmode="decimal" />
+      <span class="suffix">บาท</span>
+    </div>
+  </div>
+
+  <hr class="divider" />
+
+  <p class="result-label">ต้องจ่ายเพิ่มเอง (เกินวงเงินสิทธิ์)</p>
+  <div class="result-main">
+    <span class="amount" id="self-pay" style="color: var(--amber);">66.67</span>
+    <span class="amount-unit">บาท</span>
+  </div>
+
+  <div class="grid2">
+    <div class="mini-card gov">
+      <div class="mini-label">วงเงินสิทธิ์ใช้ได้</div>
+      <div class="mini-val" id="sp-budget-show">333.33 ฿</div>
+    </div>
+    <div class="mini-card us">
+      <div class="mini-label">ส่วนเกิน จ่ายเพิ่มเอง</div>
+      <div class="mini-val" id="sp-extra-show" style="color: var(--amber);">66.67 ฿</div>
+    </div>
+  </div>
+
+  <div class="bar-section">
+    <div class="bar-labels">
+      <span id="sp-budget-pct">วงเงินสิทธิ์ 83%</span>
+      <span id="sp-extra-pct">จ่ายเพิ่ม 17%</span>
+    </div>
+    <div class="bar-track">
+      <div class="bar-gov-fill" id="sp-bar-budget" style="width:83%"></div>
+      <div class="bar-us-fill" id="sp-bar-extra" style="width:17%;background:var(--amber);"></div>
+    </div>
+  </div>
+
+  <div class="info-box warn" id="sp-info">
+    ซื้อของ <strong>400.00</strong> บาท · ใช้วงเงินสิทธิ์ 333.33 บาท (รัฐ 200 + เรา 133.33) · ส่วนเกินต้องจ่ายเพิ่มเอง <strong>66.67</strong> บาท
+  </div>
+</div>
+</div>
+
+<div class="view" id="view-month">
+<div class="card">
+  <div class="input-group">
+    <label>วงเงินรัฐที่เหลือเดือนนี้ (บาท)</label>
+    <div class="input-wrap">
+      <span class="input-icon">฿</span>
+      <input type="number" id="mleft" value="400" min="0" max="1000" step="1" inputmode="decimal" />
+      <span class="suffix">/ 1,000 บาท</span>
+    </div>
+  </div>
+
+  <hr class="divider" />
+
+  <p class="result-label">ยังซื้อของได้อีก (ยอดรวม รวมเงินที่เราเติม)</p>
+  <div class="result-main">
+    <span class="amount" id="m-total" style="color: var(--mint);">666.67</span>
+    <span class="amount-unit">บาท</span>
+  </div>
+
+  <div class="grid2">
+    <div class="mini-card gov">
+      <div class="mini-label">สิทธิ์รัฐคงเหลือ</div>
+      <div class="mini-val" id="m-gov-left">400.00 ฿</div>
+    </div>
+    <div class="mini-card us">
+      <div class="mini-label">เราต้องเติมอีก (40%)</div>
+      <div class="mini-val" id="m-self-add">266.67 ฿</div>
+    </div>
+  </div>
+
+  <div class="bar-section">
+    <div class="bar-labels">
+      <span id="m-used-pct">ใช้สิทธิ์รัฐไปแล้ว 60%</span>
+      <span id="m-left-pct">เหลือ 40%</span>
+    </div>
+    <div class="bar-track">
+      <div class="bar-gov-fill" id="m-bar-used" style="width:60%;background:var(--track-used);"></div>
+      <div class="bar-us-fill" id="m-bar-left" style="width:40%;background:var(--mint);"></div>
+    </div>
+  </div>
+
+  <div class="info-box ok" id="m-info">
+    เดือนนี้รัฐช่วยไปแล้ว <strong>600.00</strong> บาท (เราเติมไปแล้ว <strong>400.00</strong> บาท) · เหลือสิทธิ์รัฐ <strong>400.00</strong> บาท ยังซื้อได้อีกรวม <strong>666.67</strong> บาท
+  </div>
+</div>
+</div>
+
+<aside class="note">
+  <h3>สรุปการใช้สิทธิ์ (60/40)</h3>
+
+  <div class="note-block">
+    <div class="note-head">รายวัน · เพดานรัฐ 200 บาท</div>
+    <div class="note-row"><span>รัฐออก</span><span class="v">200.00 ฿</span></div>
+    <div class="note-row"><span>เราเติม</span><span class="v">133.33 ฿</span></div>
+    <div class="note-row"><span>สามารถใช้ได้</span><span class="note-topup">333.33 ฿</span></div>
+  </div>
+
+  <div class="note-block">
+    <div class="note-head">รายเดือน · เพดานรัฐ 1,000 บาท</div>
+    <div class="note-row"><span>รัฐออก</span><span class="v">1,000.00 ฿</span></div>
+    <div class="note-row"><span>เราเติม</span><span class="v">666.67 ฿</span></div>
+    <div class="note-row"><span>สามารถใช้ได้</span><span class="note-topup">1,666.67 ฿</span></div>
+  </div>
+</aside>
+
+<p class="footer">
+  ใช้สิทธิ์ได้ถึง 30 กันยายน 2569 · จำกัดวันละไม่เกิน 200 บาท<br>
+  ชำระผ่าน G Wallet ในแอปเป๋าตัง เวลา 06.00–23.00 น.
+</p>
+
+<script>
+  const govInput = document.getElementById('gov');
+
+  function fmt(n) { return n.toFixed(2); }
+
+  const REDUCE = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  // นับตัวเลขวิ่งจากค่าเดิม → ค่าใหม่
+  function animNum(el, to, suffix) {
+    suffix = suffix || '';
+    const from = parseFloat(el.dataset.v != null ? el.dataset.v : '0') || 0;
+    el.dataset.v = to;
+    if (REDUCE || from === to) { el.textContent = fmt(to) + suffix; return; }
+    const dur = 450, t0 = performance.now();
+    function tick(now) {
+      const p = Math.min(1, (now - t0) / dur);
+      const e = 1 - Math.pow(1 - p, 3);   // ease-out cubic
+      el.textContent = fmt(from + (to - from) * e) + suffix;
+      if (p < 1) requestAnimationFrame(tick);
+    }
+    requestAnimationFrame(tick);
+  }
+
+  // เด้งเน้นตัวเลขใหญ่
+  function bump(el) {
+    if (REDUCE) return;
+    el.classList.remove('bump');
+    void el.offsetWidth;
+    el.classList.add('bump');
+  }
+
+  function calc() {
+    const gov = Math.min(200, Math.max(0, parseFloat(govInput.value) || 0));
+    const total = gov / 0.6;
+    const us = total - gov;
+    const govPct = Math.round((gov / total) * 100) || 60;
+    const usPct = 100 - govPct;
+
+    const topupEl = document.getElementById('topup');
+    animNum(topupEl, us); bump(topupEl);
+    animNum(document.getElementById('gov-show'), gov, ' ฿');
+    animNum(document.getElementById('us-show'), us, ' ฿');
+    document.getElementById('total-show').textContent = fmt(total);
+    document.getElementById('bar-gov').style.width = govPct + '%';
+    document.getElementById('bar-us').style.width = usPct + '%';
+    document.getElementById('gov-pct').textContent = 'รัฐ ' + govPct + '%';
+    document.getElementById('us-pct').textContent = 'เรา ' + usPct + '%';
+
+    const info = document.getElementById('info');
+    info.innerHTML = `ยอดรวม <strong>${fmt(total)}</strong> บาท — รัฐออก <strong>${fmt(gov)}</strong> บาท เติมเพิ่มแค่ <strong>${fmt(us)}</strong> บาท ใช้หมดพอดี`;
+  }
+
+  govInput.addEventListener('input', calc);
+
+  calc();
+
+  // ===== โหมดที่ 2: ซื้อของจ่ายเองเท่าไหร่ =====
+  const CAP = 200;            // เพดานรัฐช่วยต่อวัน (บาท)
+  const FULL = CAP / 0.6;     // = 333.33 ยอดสูงสุดที่รัฐยังช่วยเต็มสูตร
+  // ===== โหมดแยกยอด: รัฐจ่าย vs ฉันจ่ายเอง =====
+  const spriceInput = document.getElementById('sprice');
+
+  function calcSplit() {
+    const price = Math.max(0, parseFloat(spriceInput.value) || 0);
+    const gov = price * 0.6;     // รัฐจ่าย 60% เสมอ
+    const self = price * 0.4;    // ฉันจ่ายเอง 40% เสมอ
+
+    animNum(document.getElementById('sl-gov-show'), gov, ' ฿');
+    animNum(document.getElementById('sl-self-show'), self, ' ฿');
+    document.getElementById('sl-bar-gov').style.width = '60%';
+    document.getElementById('sl-bar-self').style.width = '40%';
+    document.getElementById('sl-gov-pct').textContent = 'รัฐ 60%';
+    document.getElementById('sl-self-pct').textContent = 'เรา 40%';
+
+    const info = document.getElementById('sl-info');
+    info.className = 'info-box ok';
+    info.innerHTML = `ซื้อของ <strong>${fmt(price)}</strong> บาท · รัฐจ่าย <strong>${fmt(gov)}</strong> บาท (60%) · ฉันจ่ายเอง <strong>${fmt(self)}</strong> บาท (40%)`;
+  }
+
+  spriceInput.addEventListener('input', calcSplit);
+  calcSplit();
+
+  const priceInput = document.getElementById('price');
+
+  function calcSpend() {
+    const price = Math.max(0, parseFloat(priceInput.value) || 0);
+    const used = Math.min(price, FULL);        // ส่วนที่อยู่ในวงเงินสิทธิ์ (สูงสุด 333.33)
+    const extra = Math.max(0, price - FULL);   // ส่วนเกินวงเงินสิทธิ์ = จ่ายเพิ่มเอง
+    const usedPct = price > 0 ? Math.round((used / price) * 100) : 100;
+    const extraPct = 100 - usedPct;
+
+    const selfPayEl = document.getElementById('self-pay');
+    animNum(selfPayEl, extra); bump(selfPayEl);
+    animNum(document.getElementById('sp-budget-show'), used, ' ฿');
+    animNum(document.getElementById('sp-extra-show'), extra, ' ฿');
+    document.getElementById('sp-bar-budget').style.width = usedPct + '%';
+    document.getElementById('sp-bar-extra').style.width = extraPct + '%';
+    document.getElementById('sp-budget-pct').textContent = 'วงเงินสิทธิ์ ' + usedPct + '%';
+    document.getElementById('sp-extra-pct').textContent = 'จ่ายเพิ่ม ' + extraPct + '%';
+
+    const info = document.getElementById('sp-info');
+    if (price <= FULL) {
+      info.className = 'info-box ok';
+      info.innerHTML = `ซื้อของ <strong>${fmt(price)}</strong> บาท · ยังอยู่ในวงเงินสิทธิ์ 333.33 บาท ไม่ต้องจ่ายเพิ่มเอง`;
+    } else {
+      info.className = 'info-box warn';
+      info.innerHTML = `ซื้อของ <strong>${fmt(price)}</strong> บาท · ใช้วงเงินสิทธิ์ 333.33 บาท (รัฐ 200 + เรา 133.33) · ส่วนเกินต้องจ่ายเพิ่มเอง <strong>${fmt(extra)}</strong> บาท`;
+    }
+  }
+
+  priceInput.addEventListener('input', calcSpend);
+
+  calcSpend();
+
+  // ===== โหมดเดือน: เงินคงเหลือจากโครงการ (เพดานรัฐ 1,000/เดือน) =====
+  const MONTH_CAP = 1000;    // เพดานรัฐช่วยต่อเดือน (บาท)
+  const mleftInput = document.getElementById('mleft');
+
+  function calcMonth() {
+    const govLeft = Math.min(MONTH_CAP, Math.max(0, parseFloat(mleftInput.value) || 0)); // วงเงินรัฐคงเหลือ
+    const govUsed = MONTH_CAP - govLeft;        // รัฐช่วยไปแล้วเดือนนี้
+    const selfDone = govUsed * (0.4 / 0.6);    // เราเติมไปแล้ว (40% ของยอดที่ใช้)
+    const totalLeft = govLeft / 0.6;            // ยังซื้อได้อีก รวมเงินที่เราต้องเติม
+    const selfAdd = totalLeft - govLeft;        // เราต้องเติมอีก (40%)
+    const usedPct = Math.round((govUsed / MONTH_CAP) * 100);
+    const leftPct = 100 - usedPct;
+
+    const mTotalEl = document.getElementById('m-total');
+    animNum(mTotalEl, totalLeft); bump(mTotalEl);
+    animNum(document.getElementById('m-gov-left'), govLeft, ' ฿');
+    animNum(document.getElementById('m-self-add'), selfAdd, ' ฿');
+    document.getElementById('m-bar-used').style.width = usedPct + '%';
+    document.getElementById('m-bar-left').style.width = leftPct + '%';
+    document.getElementById('m-used-pct').textContent = 'ใช้สิทธิ์รัฐไปแล้ว ' + usedPct + '%';
+    document.getElementById('m-left-pct').textContent = 'เหลือ ' + leftPct + '%';
+
+    const info = document.getElementById('m-info');
+    if (govLeft <= 0) {
+      info.className = 'info-box warn';
+      info.innerHTML = `เดือนนี้ใช้สิทธิ์รัฐเต็มเพดาน <strong>1,000.00</strong> บาทแล้ว (เราเติมไปแล้ว <strong>${fmt(selfDone)}</strong> บาท) · ใช้สิทธิ์ครบเดือนนี้`;
+    } else {
+      info.className = 'info-box ok';
+      info.innerHTML = `เดือนนี้รัฐช่วยไปแล้ว <strong>${fmt(govUsed)}</strong> บาท (เราเติมไปแล้ว <strong>${fmt(selfDone)}</strong> บาท) · เหลือสิทธิ์รัฐ <strong>${fmt(govLeft)}</strong> บาท ยังซื้อได้อีกรวม <strong>${fmt(totalLeft)}</strong> บาท`;
+    }
+  }
+
+  mleftInput.addEventListener('input', calcMonth);
+  calcMonth();
+
+  // ===== สลับแท็บ =====
+  const TABS = {
+    split: {
+      title: 'ของราคานี้<br><span>ฉัน/รัฐ จ่ายเท่าไหร่?</span>',
+      sub: 'กรอกราคาสินค้า ระบบจะแยกให้ว่ารัฐจ่ายเท่าไหร่ เราจ่ายเองเท่าไหร่'
+    },
+    topup: {
+      title: 'เติมเงินเท่าไหร่<br><span>ถึงจะใช้วงเงินหมด?</span>',
+      sub: 'กรอกวงเงินรัฐที่เหลือในแอปเป๋าตัง แล้วระบบคำนวณให้เลย'
+    },
+    spend: {
+      title: 'ซื้อของราคานี้<br><span>จ่ายเพิ่มเองเท่าไหร่?</span>',
+      sub: 'กรอกราคาสินค้า ระบบจะบอกส่วนที่เกินวงเงินสิทธิ์ที่ต้องจ่ายเพิ่มเอง'
+    },
+    month: {
+      title: 'เดือนนี้เหลือสิทธิ์<br><span>ซื้อได้อีกเท่าไหร่?</span>',
+      sub: 'เพดานรัฐ 1,000 บาท/เดือน · กรอกวงเงินรัฐที่เหลือ ระบบบอกยอดที่ยังซื้อได้อีก'
+    }
+  };
+
+  function switchTab(name) {
+    ['split', 'topup', 'spend', 'month'].forEach(t => {
+      const on = t === name;
+      document.getElementById('tab-' + t).classList.toggle('active', on);
+      document.getElementById('view-' + t).classList.toggle('active', on);
+    });
+    document.getElementById('title').innerHTML = TABS[name].title;
+    document.getElementById('subtitle').textContent = TABS[name].sub;
+  }
+  window.switchTab = switchTab;
+
+  // ===== สลับ + จำธีม =====
+  function applyThemeLabel() {
+    const cur = document.documentElement.getAttribute('data-theme') || 'pastel';
+    // ปุ่มบอก "ธีมที่จะสลับไป"
+    document.getElementById('theme-label').textContent = cur === 'dark' ? 'ธีม Pastel' : 'ธีม Dark';
+  }
+
+  function toggleTheme() {
+    const cur = document.documentElement.getAttribute('data-theme') || 'pastel';
+    const next = cur === 'dark' ? 'pastel' : 'dark';
+    document.documentElement.setAttribute('data-theme', next);
+    try { localStorage.setItem('tct-theme', next); } catch (e) {}
+    applyThemeLabel();
+  }
+  window.toggleTheme = toggleTheme;
+  applyThemeLabel();
+</script>
+</body>
+</html>

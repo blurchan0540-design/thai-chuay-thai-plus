@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://thai-chuay-thai-plus-16143.netlify.app/sitemap.xml
