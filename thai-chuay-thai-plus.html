@@ -905,6 +905,7 @@
   let calcPrev = null;
   let calcOp = null;
   let calcJustEq = false;
+  let calcWaitNext = false; // กด operator แล้ว รอรับตัวเลขถัดไป
 
   function calcEval(a, op, b) {
     if (op === '+') return a + b;
@@ -927,28 +928,54 @@
 
   function calcKey(k) {
     if (k === 'C') {
-      calcStr = ''; calcPrev = null; calcOp = null; calcJustEq = false;
+      calcStr = ''; calcPrev = null; calcOp = null; calcJustEq = false; calcWaitNext = false;
     } else if (k === '⌫') {
-      if (calcJustEq) { calcStr = ''; calcPrev = null; calcOp = null; calcJustEq = false; }
-      else calcStr = calcStr.slice(0, -1);
+      if (calcWaitNext) {
+        calcOp = null; calcPrev = null; calcWaitNext = false; // ยกเลิก operator กลับไปแก้ตัวเลข
+      } else if (calcJustEq) {
+        calcStr = ''; calcPrev = null; calcOp = null; calcJustEq = false;
+      } else {
+        calcStr = calcStr.slice(0, -1);
+      }
     } else if (k === '.') {
-      if (calcJustEq) { calcStr = '0.'; calcPrev = null; calcOp = null; calcJustEq = false; }
-      else { if (calcStr.includes('.')) return; if (!calcStr) calcStr = '0'; calcStr += '.'; }
+      if (calcJustEq) {
+        calcStr = '0.'; calcPrev = null; calcOp = null; calcJustEq = false;
+      } else if (calcWaitNext) {
+        calcStr = '0.'; calcWaitNext = false;
+      } else {
+        if (calcStr.includes('.')) return;
+        if (!calcStr) calcStr = '0';
+        calcStr += '.';
+      }
     } else if (['+', '-', '×', '÷'].includes(k)) {
-      const cur = parseFloat(calcStr) || 0;
-      if (calcPrev !== null && calcStr) calcPrev = calcEval(calcPrev, calcOp, cur);
-      else if (calcStr) calcPrev = cur;
-      calcOp = k; calcStr = ''; calcJustEq = false;
+      if (!calcWaitNext) {
+        const cur = parseFloat(calcStr) || 0;
+        if (calcPrev !== null && calcStr) {
+          calcPrev = calcEval(calcPrev, calcOp, cur); // คำนวณทันที แล้วนับต่อ
+          calcStr = fmtCalcNum(calcPrev);
+        } else if (calcStr) {
+          calcPrev = cur;
+          calcStr = fmtCalcNum(cur);
+        }
+      }
+      calcOp = k; calcWaitNext = true; calcJustEq = false;
     } else if (k === '=') {
-      if (calcPrev !== null && calcOp && calcStr) {
+      if (calcPrev !== null && calcOp && calcStr && !calcWaitNext) {
         calcStr = fmtCalcNum(calcEval(calcPrev, calcOp, parseFloat(calcStr) || 0));
-        calcPrev = null; calcOp = null; calcJustEq = true;
+        calcPrev = null; calcOp = null; calcJustEq = true; calcWaitNext = false;
       }
     } else {
-      if (calcJustEq) { calcStr = k; calcPrev = null; calcOp = null; calcJustEq = false; }
-      else if (calcStr === '0') calcStr = k;
-      else if (calcStr.replace('.', '').length >= 9) return;
-      else calcStr += k;
+      if (calcJustEq || calcWaitNext) {
+        calcStr = k;
+        if (calcJustEq) { calcPrev = null; calcOp = null; }
+        calcJustEq = false; calcWaitNext = false;
+      } else if (calcStr === '0') {
+        calcStr = k;
+      } else if (calcStr.replace('.', '').length >= 9) {
+        return;
+      } else {
+        calcStr += k;
+      }
     }
     updateCalcDisplay();
   }
@@ -962,7 +989,7 @@
     if (on) {
       const v = parseFloat(spriceInput.value) || 0;
       calcStr = v > 0 ? fmtCalcNum(v) : '';
-      calcPrev = null; calcOp = null; calcJustEq = false;
+      calcPrev = null; calcOp = null; calcJustEq = false; calcWaitNext = false;
       updateCalcDisplay();
     }
   }
